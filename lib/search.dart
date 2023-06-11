@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 import 'constants.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import 'details.dart';
+
 class GithubUser {
   final String login;
   final String name;
@@ -104,15 +106,14 @@ class _SearchState extends State<Search> {
           ),
           if (searched)
             Container(
-              padding: EdgeInsets.fromLTRB(20, 40, 20, 20),
+              padding: EdgeInsets.fromLTRB(10, 40, 20, 20),
               child: IconButton(
                 onPressed: () {
                   clearSearch();
                 }, // Use the clearSearch method to remove user details
                 icon: Icon(
-                  Icons.arrow_back_outlined,
+                  Icons.arrow_back,
                   color: Colors.white,
-                  size: 50,
                 ),
               ),
             ),
@@ -329,6 +330,24 @@ class _SearchState extends State<Search> {
                                     ],
                                   ),
                                 ),
+                                SizedBox(height: 10),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              UserDetails(user: githubUser[0]),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      'View Details',
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.white.withOpacity(0.6),
+                                        fontSize: 14,
+                                      ),
+                                    )),
                               ],
                             ),
                           ),
