@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grid_paper/grid_paper.dart';
 import 'package:dio/dio.dart';
@@ -38,25 +39,64 @@ class _HomeState extends State<Home> {
     try {
       Dio dio = Dio();
       Response response =
-          await dio.get('https://api.github.com/search/users?q=' + username);
-      Map<String, dynamic> data = json.decode(response.toString());
-      List<dynamic> items = data['items'];
+          await dio.get('https://api.github.com/search/users?q=$username');
 
-      List<GitHubUser> userList = items.map((item) {
-        return GitHubUser(
-          login: item['login'],
-          id: item['id'],
-          avatarUrl: item['avatar_url'],
-          htmlUrl: item['html_url'],
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = json.decode(response.toString());
+        List<dynamic> items = data['items'];
+
+        List<GitHubUser> userList = items.map((item) {
+          return GitHubUser(
+            login: item['login'],
+            id: item['id'],
+            avatarUrl: item['avatar_url'],
+            htmlUrl: item['html_url'],
+          );
+        }).toList();
+
+        setState(() {
+          users = userList;
+          searched = true;
+        });
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CupertinoAlertDialog(
+              title: Text('Request Failed'),
+              content: Text(
+                  'The request failed with status code ${response.statusCode}'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
         );
-      }).toList();
-
-      setState(() {
-        users = userList;
-        searched = true;
-      });
+      }
     } catch (e) {
-      // print(e);
+     // print(e);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text('Network Error'),
+            content: Text('Please check your network access.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 

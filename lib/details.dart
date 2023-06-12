@@ -32,9 +32,9 @@ class GithubUser {
       avatarUrl: json['avatar_url'] ?? '',
       login: json['login'] ?? 'username',
       name: json['name'] ?? 'name',
-      publicRepos: json['public_repos'].toString() ?? 'no. of repos',
-      followers: json['followers'].toString() ?? 'followers',
-      following: json['following'].toString() ?? 'following',
+      publicRepos: json['public_repos'].toString(),// ?? 'no. of repos',
+      followers: json['followers'].toString(), // ?? 'followers',
+      following: json['following'].toString(), // ?? 'following',
     );
   }
 }
