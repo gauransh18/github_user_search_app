@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
             return CupertinoAlertDialog(
               title: Text('Request Failed'),
               content: Text(
-                  'The request failed with status code ${response.statusCode}'),
+                  'Error code: ${response.statusCode}'),
               actions: [
                 TextButton(
                   onPressed: () {
