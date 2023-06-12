@@ -6,3 +6,5 @@ An App made using flutter that lets you search for github users by their usernam
 <img src="/assets/ss2.png?raw=true" alt="Scearch Results" width="400px">
 <img src="/assets/ss3.png?raw=true" alt="User Details w/o Bio" width="400px">
 <img src="/assets/ss4.png?raw=true" alt="User Detals with Bio" width="400px">
+<img src="/assets/ss5.png?raw=true" alt="Error on home page" width="400px">
+<img src="/assets/ss6.png?raw=true" alt="Error on user details page" width="400px">
